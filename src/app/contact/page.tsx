@@ -13,13 +13,34 @@ export default function ContactPage() {
     message: "",
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Form submitted:", formData);
-    setIsSubmitted(true);
-    setTimeout(() => setIsSubmitted(false), 5000);
-    setFormData({ name: "", email: "", subject: "", message: "" });
+    setIsSubmitting(true);
+    setSubmitError(null);
+
+    try {
+      const res = await fetch("/.netlify/functions/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.error || "Failed to send message");
+      }
+
+      setIsSubmitted(true);
+      setTimeout(() => setIsSubmitted(false), 5000);
+      setFormData({ name: "", email: "", subject: "", message: "" });
+    } catch (err) {
+      setSubmitError(err instanceof Error ? err.message : "Something went wrong");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (
@@ -53,6 +74,15 @@ export default function ContactPage() {
                   className="bg-green-900/50 text-green-100 p-4 rounded-md mb-6"
                 >
                   Thank you for your message! We&apos;ll get back to you soon.
+                </motion.div>
+              )}
+              {submitError && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="bg-red-900/50 text-red-100 p-4 rounded-md mb-6"
+                >
+                  {submitError}
                 </motion.div>
               )}
               <form onSubmit={handleSubmit} className="space-y-6">
@@ -125,10 +155,11 @@ export default function ContactPage() {
                 </div>
                 <button
                   type="submit"
-                  className="bg-primary text-white px-8 py-3 rounded-md font-semibold hover:bg-primary-dark transition-colors inline-flex items-center gap-2"
+                  disabled={isSubmitting}
+                  className="bg-primary text-white px-8 py-3 rounded-md font-semibold hover:bg-primary-dark transition-colors inline-flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <Send className="h-4 w-4" />
-                  Send Message
+                  {isSubmitting ? "Sending..." : "Send Message"}
                 </button>
               </form>
             </div>

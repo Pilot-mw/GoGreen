@@ -15,13 +15,11 @@ interface StatsCounterProps {
   stats: StatItem[];
 }
 
-function AnimatedNumber({ value, suffix = "", prefix = "" }: { value: number; suffix?: string; prefix?: string }) {
+function AnimatedNumber({ value, suffix = "", prefix = "", start }: { value: number; suffix?: string; prefix?: string; start: boolean }) {
   const [count, setCount] = useState(0);
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true });
 
   useEffect(() => {
-    if (isInView) {
+    if (start) {
       const duration = 2000;
       const steps = 60;
       const increment = value / steps;
@@ -37,18 +35,21 @@ function AnimatedNumber({ value, suffix = "", prefix = "" }: { value: number; su
       }, duration / steps);
       return () => clearInterval(timer);
     }
-  }, [isInView, value]);
+  }, [start, value]);
 
   return (
-    <span ref={ref}>
+    <span>
       {prefix}{count.toLocaleString()}{suffix}
     </span>
   );
 }
 
 export default function StatsCounter({ stats }: StatsCounterProps) {
+  const containerRef = useRef(null);
+  const isInView = useInView(containerRef, { once: true });
+
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+    <div ref={containerRef} className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8">
       {stats.map((stat, index) => (
         <motion.div
           key={index}
@@ -56,13 +57,13 @@ export default function StatsCounter({ stats }: StatsCounterProps) {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: index * 0.1 }}
           viewport={{ once: true }}
-          className="bg-white p-6 rounded-lg shadow-md text-center"
+          className="bg-white p-4 md:p-6 rounded-lg shadow-md text-center"
         >
-          <div className="flex justify-center mb-4 text-primary">{stat.icon}</div>
-          <div className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
-            <AnimatedNumber value={stat.value} suffix={stat.suffix} prefix={stat.prefix} />
+          <div className="flex justify-center mb-2 md:mb-4 text-primary">{stat.icon}</div>
+          <div className="text-2xl md:text-4xl font-bold text-gray-900 mb-1 md:mb-2">
+            <AnimatedNumber value={stat.value} suffix={stat.suffix} prefix={stat.prefix} start={isInView} />
           </div>
-          <p className="text-gray-700 text-sm">{stat.label}</p>
+          <p className="text-gray-700 text-xs md:text-sm">{stat.label}</p>
         </motion.div>
       ))}
     </div>

@@ -23,14 +23,14 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <Link href="/" className="flex items-center gap-2">
-            <Image
-              src="/go-green-logo.png"
-              alt="GoGreen Resources Limited Logo"
-              width={50}
-              height={50}
-              className="h-12 w-auto"
-              priority
-            />
+              <Image
+                src="/go-green-logo.png"
+                alt="Go Green Resources Limited Logo"
+                width={50}
+                height={50}
+                className="h-12 w-auto"
+                priority
+              />
           </Link>
 
           <div className="hidden md:flex items-center gap-8">
@@ -45,7 +45,7 @@ export default function Navbar() {
             ))}
           </div>
 
-          <div className="hidden md:block">
+          <div className="hidden md:flex items-center gap-4">
             <Link
               href="/contact"
               className="bg-primary text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-primary-dark transition-colors"

@@ -2,69 +2,61 @@
 
 import SectionHeading from "@/components/SectionHeading";
 import StepCard from "@/components/StepCard";
-import { Leaf, Recycle, Trash2, Factory, Truck, PackageSearch } from "lucide-react";
+import { Leaf, Recycle, Coins, Banknote, Layers, Target } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function HowItWorksPage() {
-  const biogasSteps = [
+  const stages = [
     {
       step: 1,
-      title: "Waste Collection",
+      title: "Recover",
       description:
-        "Organic waste is collected from markets, farms, and households across Lilongwe. We work with waste pickers and community collectors to establish reliable supply chains.",
+        "Organic waste, recyclable materials, and underused resources are collected through structured aggregator and community networks.",
       icon: "leaf" as const,
     },
     {
       step: 2,
-      title: "Anaerobic Digestion",
+      title: "Convert",
       description:
-        "The organic waste is fed into anaerobic digesters where bacteria break down the material in oxygen-free conditions, producing biogas (mainly methane and CO₂).",
-      icon: "leaf" as const,
+        "Recovered inputs are processed into clean energy, recycled materials, or value-added products using appropriate, scalable technology.",
+      icon: "recycle" as const,
     },
     {
       step: 3,
-      title: "Gas Purification",
+      title: "Distribute",
       description:
-        "The raw biogas goes through a purification process to remove impurities and increase methane concentration, ensuring clean-burning cooking fuel.",
+        "Outputs are delivered to households, institutions, and commercial or industrial buyers through cost-effective last-mile channels.",
       icon: "leaf" as const,
     },
     {
       step: 4,
-      title: "Cylinder Distribution",
+      title: "Reinvest",
       description:
-        "Purified biogas is compressed into cylinders and distributed to households, restaurants, and institutions, providing affordable clean cooking energy.",
-      icon: "leaf" as const,
+        "Revenue and impact are channelled back into expanding recovery capacity, community livelihoods, and environmental restoration.",
+      icon: "recycle" as const,
     },
   ];
 
-  const recyclingSteps = [
+  const financing = [
     {
-      step: 1,
-      title: "Community Collection",
-      description:
-        "Used beverage cans (UBC) are collected from households, markets, schools, and businesses by our network of community collectors, many of whom are youth and women.",
-      icon: "recycle" as const,
+      icon: <Coins className="h-8 w-8 text-primary" />,
+      title: "Grant-Funded Programmes",
+      desc: "Initial capital and technical support to establish recovery and conversion infrastructure.",
     },
     {
-      step: 2,
-      title: "Sorting & Quality Control",
-      description:
-        "Collected cans are brought to our facility where they are sorted by type, cleaned, and checked for quality to meet export standards.",
-      icon: "recycle" as const,
+      icon: <Banknote className="h-8 w-8 text-primary" />,
+      title: "Commercial Financing",
+      desc: "Revenue-backed structures that move operations toward financial sustainability.",
     },
     {
-      step: 3,
-      title: "Baling & Aggregation",
-      description:
-        "Quality-checked aluminium cans are compacted into bales using hydraulic baling machines, optimizing storage and transport efficiency.",
-      icon: "recycle" as const,
+      icon: <Layers className="h-8 w-8 text-primary" />,
+      title: "Blended Finance",
+      desc: "Combining concessional and commercial capital to de-risk circular economy investments.",
     },
     {
-      step: 4,
-      title: "Export to Recyclers",
-      description:
-        "Baled aluminium is exported to regional recycling partners where it is melted and reformed into new aluminium products, closing the circular economy loop.",
-      icon: "recycle" as const,
+      icon: <Target className="h-8 w-8 text-primary" />,
+      title: "Results-Based Arrangements",
+      desc: "Funding linked to verified environmental and social outcomes.",
     },
   ];
 
@@ -74,7 +66,7 @@ export default function HowItWorksPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
             title="How It Works"
-            subtitle="Understanding our processes from waste collection to delivering sustainable solutions."
+            subtitle="Our circular economy model: Recover → Convert → Distribute → Reinvest."
             centered={false}
             subtitleClass="text-white/90"
           />
@@ -85,13 +77,15 @@ export default function HowItWorksPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3 mb-12">
             <div className="p-3 bg-green-100 rounded-lg">
-              <Leaf className="h-8 w-8 text-primary" />
+              <Recycle className="h-8 w-8 text-primary" />
             </div>
-            <h2 className="text-3xl font-bold text-gray-900">Biogas Production Process</h2>
+            <h2 className="text-3xl font-bold text-gray-900">
+              The Circular Economy Model
+            </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-            {biogasSteps.map((step, index) => (
-              <StepCard key={step.step} {...step} index={index} />
+            {stages.map((stage, index) => (
+              <StepCard key={stage.step} {...stage} index={index} />
             ))}
           </div>
         </div>
@@ -99,55 +93,25 @@ export default function HowItWorksPage() {
 
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-3 mb-12">
-            <div className="p-3 bg-green-100 rounded-lg">
-              <Recycle className="h-8 w-8 text-primary" />
-            </div>
-            <h2 className="text-3xl font-bold text-gray-900">Aluminium Recycling Process</h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-            {recyclingSteps.map((step, index) => (
-              <StepCard key={step.step} {...step} index={index} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-16 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
-            title="The Circular Economy in Action"
-            subtitle="Both our biogas and recycling operations demonstrate how waste can become valuable resources."
+            title="Adaptable by Design"
+            subtitle="The model is modular and can be adapted to different financing structures."
           />
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
-            {[
-              {
-                icon: <Trash2 className="h-10 w-10 text-primary" />,
-                title: "Waste Input",
-                desc: "Collecting organic waste and aluminium cans that would otherwise pollute the environment.",
-              },
-              {
-                icon: <Factory className="h-10 w-10 text-primary" />,
-                title: "Processing",
-                desc: "Converting waste into valuable products through biogas digestion and aluminium recycling.",
-              },
-              {
-                icon: <Truck className="h-10 w-10 text-primary" />,
-                title: "Distribution",
-                desc: "Delivering clean energy to communities and exporting recycled materials to global markets.",
-              },
-            ].map((item) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
+            {financing.map((item, idx) => (
               <motion.div
                 key={item.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
                 viewport={{ once: true }}
-                className="text-center p-6 bg-gray-50 rounded-lg"
+                className="bg-white p-6 rounded-lg shadow-md text-center"
               >
                 <div className="flex justify-center mb-4">{item.icon}</div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{item.title}</h3>
-                <p className="text-gray-700">{item.desc}</p>
+                <h3 className="text-lg font-bold text-gray-900 mb-2">
+                  {item.title}
+                </h3>
+                <p className="text-sm text-gray-700">{item.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -157,16 +121,17 @@ export default function HowItWorksPage() {
       <section className="py-16 bg-gradient-to-r from-green-800 to-blue-900 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            Want to See Our Operations?
+            Let&apos;s Build a Circular Future Together
           </h2>
           <p className="text-xl text-green-100 mb-8 max-w-2xl mx-auto">
-            Visit our facilities in Lilongwe to see how we transform waste into valuable resources.
+            Partner with us to design and deliver circular economy solutions
+            across Malawi and the wider SADC region.
           </p>
           <a
             href="/contact"
             className="bg-white text-primary px-8 py-3 rounded-md font-semibold hover:bg-green-50 transition-colors inline-block"
           >
-            Schedule a Visit
+            Partner With Us
           </a>
         </div>
       </section>

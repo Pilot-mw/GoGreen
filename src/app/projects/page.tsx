@@ -2,61 +2,72 @@
 
 import SectionHeading from "@/components/SectionHeading";
 import { motion } from "framer-motion";
-import { Leaf, Recycle, Calendar, Users, TrendingUp, CheckCircle } from "lucide-react";
+import {
+  Leaf,
+  Recycle,
+  Sprout,
+  Users,
+  ShieldCheck,
+  Cloud,
+  Calendar,
+  TrendingUp,
+} from "lucide-react";
 
 export default function ProjectsPage() {
-  const timeline = [
+  const workAreas = [
     {
-      phase: "Phase 1: Setup",
-      duration: "Months 1-6",
-      status: "completed",
-      items: [
-        "Site identification and acquisition in Lilongwe",
-        "Equipment procurement and installation",
-        "Community engagement and collector recruitment",
-        "Regulatory compliance and licensing",
-      ],
+      icon: <Leaf className="h-8 w-8 text-primary" />,
+      title: "Community-Linked Biogas Systems",
+      desc: "Anaerobic digestion of organic and biomass waste to produce clean cooking fuel for households and institutions.",
     },
     {
-      phase: "Phase 2: Operations",
-      duration: "Months 6-18",
-      status: "in-progress",
-      items: [
-        "Commence biogas production from organic waste",
-        "Launch aluminium can collection network",
-        "Establish baling and processing facility",
-        "Begin community distribution of biogas cylinders",
-      ],
+      icon: <Recycle className="h-8 w-8 text-primary" />,
+      title: "Materials Recovery & Recycling",
+      desc: "Structured collection and processing of recyclable materials, beginning with aluminium used beverage cans.",
     },
     {
-      phase: "Phase 3: Scale",
-      duration: "Months 18-36",
-      status: "upcoming",
-      items: [
-        "Expand collection network to surrounding districts",
-        "Increase biogas production capacity",
-        "Establish additional collection centers",
-        "Develop export partnerships for recycled aluminium",
-      ],
+      icon: <Sprout className="h-8 w-8 text-primary" />,
+      title: "Organic Waste Valorisation",
+      desc: "Composting and black soldier fly farming that convert biodegradable waste into soil inputs and animal feed.",
     },
     {
-      phase: "Phase 4: Sustainability",
-      duration: "Year 3+",
-      status: "upcoming",
-      items: [
-        "Achieve operational profitability",
-        "Replicate model in other Malawian cities",
-        "Train local entrepreneurs to franchise model",
-        "Establish research partnership with universities",
-      ],
+      icon: <Users className="h-8 w-8 text-primary" />,
+      title: "Green Livelihoods",
+      desc: "Aggregator and distribution networks that create income for youth groups, women-led enterprises, and community collectors.",
+    },
+    {
+      icon: <ShieldCheck className="h-8 w-8 text-primary" />,
+      title: "Environmental Consultancy",
+      desc: "Advisory and technical support for structuring and delivering circular economy and environmental projects.",
+    },
+    {
+      icon: <Cloud className="h-8 w-8 text-primary" />,
+      title: "Carbon Project Development",
+      desc: "Development of carbon credit projects that capture environmental value and attract climate finance.",
     },
   ];
 
   const partnerships = [
-    { icon: <Calendar className="h-6 w-6" />, title: "Markets & Farms", desc: "Organic waste suppliers for biogas production" },
-    { icon: <Users className="h-6 w-6" />, title: "Community Collectors", desc: "Local youth and women in collection network" },
-    { icon: <TrendingUp className="h-6 w-6" />, title: "Export Buyers", desc: "Regional recyclers for aluminium cans" },
-    { icon: <Leaf className="h-6 w-6" />, title: "Environmental NGOs", desc: "Technical and knowledge partnerships" },
+    {
+      icon: <Calendar className="h-6 w-6" />,
+      title: "Markets and Farms",
+      desc: "Markets, farms, food processing businesses, and agricultural producers supply organic feedstock for our clean energy and valorisation activities, improving their waste management while reducing environmental footprint.",
+    },
+    {
+      icon: <Users className="h-6 w-6" />,
+      title: "Community Collectors",
+      desc: "Local youth, women, waste collectors, and community-based organizations are at the heart of our recovery networks, creating sustainable income while keeping materials in circulation.",
+    },
+    {
+      icon: <TrendingUp className="h-6 w-6" />,
+      title: "Regional Recycling Partners",
+      desc: "Trusted regional recycling companies process our recovered materials into new products, connecting Malawi's efforts to the wider circular economy.",
+    },
+    {
+      icon: <Leaf className="h-6 w-6" />,
+      title: "Environmental NGOs and Development Partners",
+      desc: "Environmental organizations, NGOs, research institutions, and development agencies provide technical expertise, capacity building, and strategic support.",
+    },
   ];
 
   return (
@@ -64,8 +75,8 @@ export default function ProjectsPage() {
       <section className="bg-gradient-to-br from-green-900 via-green-800 to-blue-900 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <SectionHeading
-            title="Our Projects"
-            subtitle="Highlighting our flagship initiative and future expansion plans."
+            title="Our Work"
+            subtitle="Our practical areas of work across the circular economy."
             centered={false}
             subtitleClass="text-white/90"
           />
@@ -80,90 +91,49 @@ export default function ProjectsPage() {
                 <Recycle className="h-8 w-8 text-white" />
               </div>
               <h2 className="text-3xl font-bold text-white">
-                Community Biogas & Aluminium Recycling Initiative
+                An Integrated Circular Model
               </h2>
             </div>
             <p className="text-white/90 text-lg mb-6">
-              Our flagship project in Lilongwe integrates biogas production from organic waste with 
-              aluminium can recycling, creating a comprehensive waste-to-resource ecosystem that 
-              benefits the environment and local communities.
+              Go Green Resources Limited recovers waste and underused resources
+              and transforms them into clean energy, recovered materials,
+              sustainable products, and economic opportunity. Our work spans
+              energy access, waste management, climate finance, and community
+              development.
             </p>
             <div className="flex flex-wrap gap-4">
               <span className="bg-primary text-white px-4 py-2 rounded-full text-sm font-semibold">
                 Lilongwe-Based
               </span>
               <span className="bg-green-700 text-green-100 px-4 py-2 rounded-full text-sm font-semibold">
-                Multi-Phase Project
+                Community-Driven
               </span>
               <span className="bg-blue-800 text-blue-100 px-4 py-2 rounded-full text-sm font-semibold">
-                Community-Driven
+                Regionally Ambitious
               </span>
             </div>
           </div>
 
           <SectionHeading
-            title="Project Timeline"
-            subtitle="Our phased approach to building a sustainable environmental enterprise."
+            title="Areas of Work"
+            subtitle="Current and developing focus areas across our circular economy model."
           />
 
-          <div className="mt-12 space-y-8">
-            {timeline.map((phase, index) => (
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {workAreas.map((area, index) => (
               <motion.div
-                key={phase.phase}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5 }}
+                key={area.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.05 }}
                 viewport={{ once: true }}
-                className="relative"
+                className="bg-gray-800 p-6 rounded-lg shadow-md"
               >
-                <div className="flex items-start gap-6">
-                  <div className="flex-shrink-0">
-                    <div
-                      className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-white ${
-                        phase.status === "completed"
-                          ? "bg-green-600"
-                          : phase.status === "in-progress"
-                          ? "bg-yellow-500"
-                          : "bg-gray-600"
-                      }`}
-                    >
-                      {phase.status === "completed" ? (
-                        <CheckCircle className="h-6 w-6" />
-                      ) : (
-                        index + 1
-                      )}
-                    </div>
-                  </div>
-                  <div className="flex-grow bg-gray-800 p-6 rounded-lg">
-                    <div className="flex flex-wrap items-center gap-3 mb-4">
-                      <h3 className="text-xl font-bold text-white">{phase.phase}</h3>
-                      <span className="text-sm text-white/70">{phase.duration}</span>
-                      <span
-                        className={`px-3 py-1 rounded-full text-xs font-semibold ${
-                          phase.status === "completed"
-                            ? "bg-green-900 text-green-100"
-                            : phase.status === "in-progress"
-                            ? "bg-yellow-900 text-yellow-100"
-                            : "bg-gray-700 text-gray-300"
-                        }`}
-                      >
-                        {phase.status === "completed"
-                          ? "Completed"
-                          : phase.status === "in-progress"
-                          ? "In Progress"
-                          : "Upcoming"}
-                      </span>
-                    </div>
-                    <ul className="space-y-2">
-                      {phase.items.map((item, itemIndex) => (
-                        <li key={itemIndex} className="flex items-start gap-2 text-white/90">
-                          <span className="text-primary font-bold mt-0.5">•</span>
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
+                <div className="text-primary mb-4">{area.icon}</div>
+                <h3 className="text-lg font-bold text-white mb-2">
+                  {area.title}
+                </h3>
+                <p className="text-white/90 text-sm">{area.desc}</p>
               </motion.div>
             ))}
           </div>
@@ -172,23 +142,31 @@ export default function ProjectsPage() {
 
       <section className="py-16 bg-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <SectionHeading
-            title="Key Partnerships"
-            subtitle="Collaborating with diverse stakeholders to maximize impact."
-          />
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
-            {partnerships.map((partner) => (
+          <h2 className="text-3xl font-bold text-primary mb-4">Key Partnerships</h2>
+          <p className="text-white text-lg mb-8 max-w-3xl text-justify">
+            We work with government institutions, development partners, financial
+            institutions, and private-sector clients to structure, finance, and
+            deliver circular economy projects.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+            {partnerships.map((partner, index) => (
               <motion.div
                 key={partner.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
+                transition={{ duration: 0.5, delay: index * 0.05 }}
                 viewport={{ once: true }}
-                className="bg-gray-900 p-6 rounded-lg shadow-md text-center"
+                className="bg-gray-900 p-6 rounded-lg shadow-md"
               >
-                <div className="text-primary flex justify-center mb-4">{partner.icon}</div>
-                <h3 className="text-lg font-bold text-white mb-2">{partner.title}</h3>
-                <p className="text-white/90 text-sm">{partner.desc}</p>
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="text-primary">{partner.icon}</div>
+                  <h3 className="text-lg font-bold text-white">
+                    {partner.title}
+                  </h3>
+                </div>
+                <p className="text-white/90 text-sm text-justify">
+                  {partner.desc}
+                </p>
               </motion.div>
             ))}
           </div>
@@ -198,10 +176,11 @@ export default function ProjectsPage() {
       <section className="py-16 bg-gradient-to-r from-green-800 to-blue-900 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            Want to Partner on Future Projects?
+            Let&apos;s Build a Circular Future Together
           </h2>
           <p className="text-xl text-green-100 mb-8 max-w-2xl mx-auto">
-            We&apos;re always looking for strategic partners, investors, and community organizations to join our mission.
+            We&apos;re always looking for strategic partners, investors, and community
+            organizations to join our mission.
           </p>
           <a
             href="/contact"

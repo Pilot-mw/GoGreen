@@ -11,27 +11,32 @@ export default function Footer() {
             <div className="mb-4">
               <Image
                 src="/go-green-logo.png"
-                alt="GoGreen Resources Limited Logo"
+                alt="Go Green Resources Limited Logo"
                 width={180}
                 height={60}
                 className="h-12 w-auto brightness-0 invert"
               />
             </div>
             <p className="text-gray-300 text-sm max-w-md">
-              Powering clean communities in Malawi through sustainable biogas energy and aluminium recycling solutions.
+              Go Green Resources Limited is a Malawian environmental enterprise building circular economy solutions that transform waste and underused resources into clean energy, recovered materials, and sustainable livelihoods.
             </p>
           </div>
 
           <div>
             <h3 className="text-sm font-semibold uppercase tracking-wider mb-4">Quick Links</h3>
             <ul className="space-y-2">
-              {["About Us", "Solutions", "Impact", "Projects"].map((item) => (
-                <li key={item}>
+              {[
+                { label: "About Us", href: "/about" },
+                { label: "Solutions", href: "/solutions" },
+                { label: "Impact", href: "/impact" },
+                { label: "Projects", href: "/projects" },
+              ].map((link) => (
+                <li key={link.label}>
                   <Link
-                    href={`/${item.toLowerCase().replace(" ", "-")}`}
+                    href={link.href}
                     className="text-gray-300 hover:text-primary-light text-sm transition-colors"
                   >
-                    {item}
+                    {link.label}
                   </Link>
                 </li>
               ))}
@@ -43,22 +48,22 @@ export default function Footer() {
             <ul className="space-y-3">
               <li className="flex items-start gap-2 text-sm text-gray-300">
                 <MapPin className="h-4 w-4 mt-0.5 text-primary-light flex-shrink-0" />
-                <span>Lilongwe, Malawi</span>
+                <span>Lilongwe, Republic of Malawi, Central Africa</span>
               </li>
               <li className="flex items-center gap-2 text-sm text-gray-300">
                 <Mail className="h-4 w-4 text-primary-light flex-shrink-0" />
-                <span>info@gogreen.com</span>
+                <a href="mailto:info@gogreenmw.com" className="hover:text-primary-light transition-colors">info@gogreenmw.com</a>
               </li>
               <li className="flex items-center gap-2 text-sm text-gray-300">
                 <Phone className="h-4 w-4 text-primary-light flex-shrink-0" />
-                <span>+265 996 466 547</span>
+                <a href="tel:+265996466547" className="hover:text-primary-light transition-colors">+265 996 466 547</a>
               </li>
             </ul>
           </div>
         </div>
 
         <div className="border-t border-gray-700 mt-8 pt-8 text-center text-sm text-gray-400">
-          <p>&copy; {new Date().getFullYear()} GoGreen Resources Limited. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Go Green Resources Limited. All rights reserved.</p>
         </div>
       </div>
     </footer>

@@ -1,10 +1,6 @@
 [build]
   command = "npm run build"
-  publish = ".next"
-  functions = "netlify/functions"
-
-[context.production.environment]
-  RESEND_API_KEY = "re_54jVDHyg_MTCnmY3jk2HeHoVZDVJ5EJvP"
+  publish = "out"
 
 [[redirects]]
   from = "/*"

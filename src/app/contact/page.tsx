@@ -1,34 +1,78 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import SectionHeading from "@/components/SectionHeading";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
 import { motion } from "framer-motion";
 
+const CONTACT_API = "/.netlify/functions/send-contact-email";
+const SUBMIT_COOLDOWN_MS = 20000;
+
 export default function ContactPage() {
   const [formData, setFormData] = useState({
-    full_name: "",
+    name: "",
     email: "",
+    phone: "",
     subject: "",
     message: "",
   });
+  const [honeypot, setHoneypot] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const lastSubmitRef = useRef<number | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    const subject = encodeURIComponent(
-      `[Go Green Resources] ${formData.subject} - from ${formData.full_name}`
-    );
-    const body = encodeURIComponent(
-      `Name: ${formData.full_name}\nEmail: ${formData.email}\n\n${formData.message}`
-    );
-
-    window.location.href = `mailto:info@gogreenmw.com?subject=${subject}&body=${body}`;
-
+  const showSuccess = () => {
+    setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+    setHoneypot("");
     setIsSubmitted(true);
     setTimeout(() => setIsSubmitted(false), 5000);
-    setFormData({ full_name: "", email: "", subject: "", message: "" });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (honeypot) {
+      showSuccess();
+      return;
+    }
+
+    const now = Date.now();
+    if (lastSubmitRef.current && now - lastSubmitRef.current < SUBMIT_COOLDOWN_MS) {
+      setSubmitError("Please wait a moment before sending another message.");
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmitError(null);
+
+    try {
+      const res = await fetch(CONTACT_API, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...formData, website: honeypot }),
+      });
+
+      if (res.ok) {
+        showSuccess();
+        return;
+      }
+
+      if (res.status === 400) {
+        setSubmitError("Please check the submitted information and try again.");
+      } else if (res.status === 429) {
+        setSubmitError(
+          "Too many messages have been sent from this network. Please try again later."
+        );
+      } else {
+        setSubmitError("Unable to send your message. Please try again later.");
+      }
+    } catch {
+      setSubmitError("Unable to send your message. Please try again later.");
+    } finally {
+      setIsSubmitting(false);
+      lastSubmitRef.current = Date.now();
+    }
   };
 
   const handleChange = (
@@ -61,21 +105,54 @@ export default function ContactPage() {
                   animate={{ opacity: 1, y: 0 }}
                   className="bg-green-900/50 text-green-100 p-4 rounded-md mb-6"
                 >
-                  Thank you for your message! We&apos;ll get back to you soon.
+                  Message Sent Successfully — Thank you for contacting us.
+                  We&apos;ll get back to you soon.
+                </motion.div>
+              )}
+              {submitError && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="bg-red-900/50 text-red-100 p-4 rounded-md mb-6"
+                >
+                  {submitError}
                 </motion.div>
               )}
                   <form onSubmit={handleSubmit} className="space-y-6">
+<div
+                  style={{
+                    position: "absolute",
+                    left: "-9999px",
+                    width: "1px",
+                    height: "1px",
+                    overflow: "hidden",
+                    opacity: 0,
+                  }}
+                  aria-hidden="true"
+                >
+                  <label htmlFor="website">Website</label>
+                  <input
+                    type="text"
+                    id="website"
+                    name="website"
+                    value={honeypot}
+                    onChange={(e) => setHoneypot(e.target.value)}
+                    tabIndex={-1}
+                    autoComplete="off"
+                  />
+                </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="full_name" className="block text-sm font-medium text-white/90 mb-2">
+                    <label htmlFor="name" className="block text-sm font-medium text-white/90 mb-2">
                       Full Name *
                     </label>
                     <input
                       type="text"
-                      id="full_name"
-                      name="full_name"
+                      id="name"
+                      name="name"
                       required
-                      value={formData.full_name}
+                      maxLength={100}
+                      value={formData.name}
                       onChange={handleChange}
                       className="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:ring-2 focus:ring-primary focus:border-transparent"
                       placeholder="John Doe"
@@ -90,12 +167,28 @@ export default function ContactPage() {
                       id="email"
                       name="email"
                       required
+                      maxLength={254}
                       value={formData.email}
                       onChange={handleChange}
                       className="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:ring-2 focus:ring-primary focus:border-transparent"
                       placeholder="john@example.com"
                     />
                   </div>
+                </div>
+                <div>
+                  <label htmlFor="phone" className="block text-sm font-medium text-white/90 mb-2">
+                    Phone <span className="text-white/50">(optional)</span>
+                  </label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    name="phone"
+                    maxLength={30}
+                    value={formData.phone}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:ring-2 focus:ring-primary focus:border-transparent"
+                    placeholder="+265..."
+                  />
                 </div>
                 <div>
                   <label htmlFor="subject" className="block text-sm font-medium text-white/90 mb-2">
@@ -126,6 +219,7 @@ export default function ContactPage() {
                     name="message"
                     required
                     rows={6}
+                    maxLength={5000}
                     value={formData.message}
                     onChange={handleChange}
                     className="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:ring-2 focus:ring-primary focus:border-transparent"
@@ -134,10 +228,11 @@ export default function ContactPage() {
                 </div>
                 <button
                   type="submit"
-                  className="bg-primary text-white px-8 py-3 rounded-md font-semibold hover:bg-primary-dark transition-colors inline-flex items-center gap-2"
+                  disabled={isSubmitting}
+                  className="bg-primary text-white px-8 py-3 rounded-md font-semibold hover:bg-primary-dark transition-colors inline-flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <Send className="h-4 w-4" />
-                  Send Message
+                  {isSubmitting ? "Sending..." : "Send Message"}
                 </button>
               </form>
             </div>

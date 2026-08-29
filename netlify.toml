@@ -1,7 +1,11 @@
 [build]
   command = "npm run build"
   publish = "out"
+  functions = "netlify/functions"
 
+# The contact form posts directly to the Netlify function path below.
+# On Netlify, /.netlify/functions/* is served by the Functions runtime and
+# takes precedence over the SPA catch-all redirect.
 [[redirects]]
   from = "/*"
   to = "/index.html"
@@ -21,3 +25,12 @@
   for = "/*.css"
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    Content-Security-Policy = "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; frame-src https://www.google.com; script-src 'self' 'unsafe-inline'; script-src-attr 'none'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; media-src 'self'; worker-src 'self'; upgrade-insecure-requests"

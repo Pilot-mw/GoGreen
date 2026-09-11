@@ -5,7 +5,7 @@
 const nodemailer = require("nodemailer");
 
 const SITE_NAME = "GoGreen Resources Limited";
-const DEFAULT_SITE_URL = "https://gogreenmw.netlify.app";
+const DEFAULT_SITE_URL = "https://gogreenmw.com";
 
 const MAX_BODY_BYTES = 16384;
 const RATE_LIMIT_MAX = 5;
@@ -38,13 +38,15 @@ function log(level, msg) {
 }
 
 function getConfig() {
-  const host = process.env.SMTP_HOST || "smtp.gmail.com";
+  const host = process.env.SMTP_HOST || "";
   const port = Number(process.env.SMTP_PORT || "465") || 465;
   const secure =
     process.env.SMTP_SECURE !== undefined &&
     process.env.SMTP_SECURE !== ""
       ? ["1", "true", "yes", "on"].includes(String(process.env.SMTP_SECURE).toLowerCase())
       : port === 465;
+  const smtpFrom =
+    process.env.MAIL_FROM || process.env.SMTP_FROM || process.env.SMTP_USER || "";
   return {
     host,
     port,
@@ -54,11 +56,9 @@ function getConfig() {
     toAdmin: process.env.CONTACT_EMAIL || "",
     siteUrl: (process.env.SITE_URL || DEFAULT_SITE_URL).replace(/\/+$/, ""),
     // By default the message is sent authenticated as the SMTP account listed
-    // in SMTP_USER. An explicit SMTP_FROM env var may override the sender.
-    from:
-      process.env.SMTP_FROM && process.env.SMTP_FROM.includes("@")
-        ? `"${SITE_NAME}" <${process.env.SMTP_FROM}>`
-        : `"${SITE_NAME}" <${process.env.SMTP_USER}>`,
+    // in SMTP_USER. MAIL_FROM (or the legacy alias SMTP_FROM) may override the
+    // displayed sender address.
+    from: smtpFrom.includes("@") ? `"${SITE_NAME}" <${smtpFrom}>` : `"${SITE_NAME}" <${process.env.SMTP_USER}>`,
   };
 }
 
@@ -368,8 +368,8 @@ exports.handler = async function (event) {
     return jsonResponse(429, false, "Too many messages have been sent from this network. Please try again later.");
   }
 
-  if (!config.user || !config.pass || !config.toAdmin) {
-    log("error", "Email not configured — missing SMTP_USER/SMTP_PASSWORD/CONTACT_EMAIL env vars.");
+  if (!config.host || !config.user || !config.pass || !config.toAdmin) {
+    log("error", "Email not configured — missing SMTP_HOST/SMTP_USER/SMTP_PASSWORD/CONTACT_EMAIL env vars.");
     return jsonResponse(503, false, "Email service is not configured.");
   }
 

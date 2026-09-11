@@ -2,7 +2,7 @@
 
 import { useState, useRef } from "react";
 import SectionHeading from "@/components/SectionHeading";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Send, MessageCircle } from "lucide-react";
 import { motion } from "framer-motion";
 
 const CONTACT_API = "/.netlify/functions/send-contact-email";
@@ -259,7 +259,7 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-white mb-1">Email</h3>
-                    <p className="text-white/90">info@gogreenmw.com</p>
+                    <p className="text-white/90">admin@gogreenmw.com</p>
                     <p className="text-sm text-white/70">We respond within 24 hours</p>
                   </div>
                 </div>
@@ -271,6 +271,28 @@ export default function ContactPage() {
                     <h3 className="font-semibold text-white mb-1">Phone</h3>
                     <a href="tel:+265996466547" className="text-white/90 hover:text-primary-light transition-colors">+265 996 466 547</a>
                     <p className="text-sm text-white/70">Mon-Fri, 8:00-17:00</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <a
+                    href="https://wa.me/265996466547"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-3 bg-green-800 rounded-lg flex-shrink-0 hover:bg-green-700 transition-colors"
+                  >
+                    <MessageCircle className="h-6 w-6 text-primary-light" />
+                  </a>
+                  <div>
+                    <h3 className="font-semibold text-white mb-1">WhatsApp</h3>
+                    <a
+                      href="https://wa.me/265996466547"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-white/90 hover:text-primary-light transition-colors"
+                    >
+                      Chat with us
+                    </a>
+                    <p className="text-sm text-white/70">+265 996 466 547</p>
                   </div>
                 </div>
               </div>

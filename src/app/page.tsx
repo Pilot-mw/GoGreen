@@ -73,7 +73,7 @@ export default function Home() {
         description="Turning waste into value, energy, and opportunity."
         primaryCTA={{ label: "Explore Our Solutions", href: "/solutions" }}
         secondaryCTA={{ label: "Partner With Us", href: "/contact" }}
-        bgImage="/hero.png"
+        bgImage="/hero.jpg"
         overlayOpacity={30}
       />
 

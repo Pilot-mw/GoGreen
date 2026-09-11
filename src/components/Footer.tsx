@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, MessageCircle } from "lucide-react";
 
 export default function Footer() {
   return (
@@ -52,11 +52,22 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-2 text-sm text-gray-300">
                 <Mail className="h-4 w-4 text-primary-light flex-shrink-0" />
-                <a href="mailto:info@gogreenmw.com" className="hover:text-primary-light transition-colors">info@gogreenmw.com</a>
+                <a href="mailto:admin@gogreenmw.com" className="hover:text-primary-light transition-colors">admin@gogreenmw.com</a>
               </li>
               <li className="flex items-center gap-2 text-sm text-gray-300">
                 <Phone className="h-4 w-4 text-primary-light flex-shrink-0" />
                 <a href="tel:+265996466547" className="hover:text-primary-light transition-colors">+265 996 466 547</a>
+              </li>
+              <li className="flex items-center gap-2 text-sm text-gray-300">
+                <a
+                  href="https://wa.me/265996466547"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 hover:text-primary-light transition-colors"
+                >
+                  <MessageCircle className="h-4 w-4 text-primary-light flex-shrink-0" />
+                  WhatsApp: +265 996 466 547
+                </a>
               </li>
             </ul>
           </div>

@@ -39,11 +39,12 @@ export default function Hero({
             fill
             className="object-cover object-center"
             priority
-            quality={90}
+            sizes="100vw"
+            quality={80}
           />
           <div
-            className="absolute inset-0 bg-black/"
-            style={{ opacity: 0.6 }}
+            className="absolute inset-0 bg-black"
+            style={{ opacity: overlayOpacity / 100 }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/40" />
         </div>

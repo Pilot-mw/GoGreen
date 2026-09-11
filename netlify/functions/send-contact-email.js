@@ -55,9 +55,8 @@ function getConfig() {
     pass: process.env.SMTP_PASSWORD || "",
     toAdmin: process.env.CONTACT_EMAIL || "",
     siteUrl: (process.env.SITE_URL || DEFAULT_SITE_URL).replace(/\/+$/, ""),
-    // By default the message is sent authenticated as the SMTP account listed
-    // in SMTP_USER. MAIL_FROM (or the legacy alias SMTP_FROM) may override the
-    // displayed sender address.
+    // The message is sent authenticated as the configured SMTP account; the
+    // displayed sender address may optionally be overridden.
     from: smtpFrom.includes("@") ? `"${SITE_NAME}" <${smtpFrom}>` : `"${SITE_NAME}" <${process.env.SMTP_USER}>`,
   };
 }
@@ -369,7 +368,7 @@ exports.handler = async function (event) {
   }
 
   if (!config.host || !config.user || !config.pass || !config.toAdmin) {
-    log("error", "Email not configured — missing SMTP_HOST/SMTP_USER/SMTP_PASSWORD/CONTACT_EMAIL env vars.");
+    log("error", "Email not configured — required SMTP environment variables are missing.");
     return jsonResponse(503, false, "Email service is not configured.");
   }
 

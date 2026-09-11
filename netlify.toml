@@ -3,14 +3,12 @@
   publish = "out"
   functions = "netlify/functions"
 
-# Netlify's smart detection scans repository code and build output for
-# secret-like patterns and flags our SMTP env-var NAMES (MAIL_FROM, SMTP_HOST,
-# CONTACT_EMAIL, etc.). Those names/values are public configuration, not
-# secrets. The real secret is SMTP_PASSWORD, which lives only in Netlify and
-# never appears in the repo or build output. Per Netlify's docs, safelist the
-# false positives here instead of disabling smart detection (scanning stays on).
-[build.environment]
-  SECRETS_SCAN_SMART_DETECTION_OMIT_VALUES = "MAIL_FROM,SMTP_HOST,SMTP_PORT,SMTP_SECURE,SMTP_USER,SMTP_PASSWORD,SMTP_FROM,CONTACT_EMAIL,admin@gogreenmw.com,mail.spacemail.com"
+# Netlify smart detection flags the SMTP env-var NAMES used by the
+# contact-form function (SMTP_USER, SMTP_HOST, MAIL_FROM, CONTACT_EMAIL...).
+# These are public config, not secrets. The false-positive safelist cannot be
+# set here — Netlify requires SECRETS_SCAN_SMART_DETECTION_OMIT_VALUES to be a
+# dashboard env var (Site configuration > Environment variables):
+#   value = MAIL_FROM,SMTP_HOST,SMTP_PORT,SMTP_SECURE,SMTP_USER,SMTP_PASSWORD,SMTP_FROM,CONTACT_EMAIL,admin@gogreenmw.com,mail.spacemail.com
 
 # The contact form posts directly to the Netlify function path below.
 # On Netlify, /.netlify/functions/* is served by the Functions runtime and

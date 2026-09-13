@@ -52,7 +52,10 @@ export default function Footer() {
               </li>
               <li className="flex items-center gap-2 text-sm text-gray-300">
                 <Mail className="h-4 w-4 text-primary-light flex-shrink-0" />
-                <a href="mailto:admin@gogreenmw.com" className="hover:text-primary-light transition-colors">admin@gogreenmw.com</a>
+                <div>
+                  <a href="mailto:admin@gogreenmw.com" className="hover:text-primary-light transition-colors block">admin@gogreenmw.com</a>
+                  <a href="mailto:edgar@gogreenmw.com" className="hover:text-primary-light transition-colors block">edgar@gogreenmw.com</a>
+                </div>
               </li>
               <li className="flex items-center gap-2 text-sm text-gray-300">
                 <Phone className="h-4 w-4 text-primary-light flex-shrink-0" />

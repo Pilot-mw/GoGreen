@@ -259,7 +259,8 @@ export default function ContactPage() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-white mb-1">Email</h3>
-                    <p className="text-white/90">admin@gogreenmw.com</p>
+                    <a href="mailto:admin@gogreenmw.com" className="text-white/90 hover:text-primary-light transition-colors block">admin@gogreenmw.com</a>
+                    <a href="mailto:edgar@gogreenmw.com" className="text-white/90 hover:text-primary-light transition-colors block">edgar@gogreenmw.com</a>
                     <p className="text-sm text-white/70">We respond within 24 hours</p>
                   </div>
                 </div>
